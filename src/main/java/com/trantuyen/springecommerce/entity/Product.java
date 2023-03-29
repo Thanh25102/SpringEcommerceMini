@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -36,7 +34,7 @@ public class Product {
     @Column(name = "category", nullable = false, length = 255)
     private String category;
     @OneToMany(mappedBy = "productByProductId")
-    private Set<Cart> cartsById = new HashSet<>();;
+    private Set<Cart> cartsById = new HashSet<>();
     @OneToMany(mappedBy = "productByProductId")
-    private Set<OrderDetail> orderDetailsById = new HashSet<>();;
+    private Set<OrderDetail> orderDetailsById = new HashSet<>();
 }
