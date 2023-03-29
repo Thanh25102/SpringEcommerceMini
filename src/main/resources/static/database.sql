@@ -21,7 +21,8 @@ create table customer
     id       bigint primary key auto_increment,
     name     varchar(255) not null,
     username varchar(255) not null,
-    password varchar(64)  not null
+    password varchar(64)  not null,
+    avatar varchar(500) null
 );
 create table orderdetail
 (

@@ -29,6 +29,9 @@ public class Customer implements UserDetails {
     @Column(name = "username", nullable = false, length = 255)
     private String username;
     @Basic
+    @Column(name = "avatar", length = 500)
+    private String avatar;
+    @Basic
     @Column(name = "password", nullable = false, length = 64)
     private String password;
     @OneToMany(mappedBy = "customerByCustomerId")

@@ -3,6 +3,7 @@ package com.trantuyen.springecommerce.controller;
 import com.trantuyen.springecommerce.entity.Customer;
 import com.trantuyen.springecommerce.models.AuthenticationRequest;
 import com.trantuyen.springecommerce.models.AuthenticationResponse;
+import com.trantuyen.springecommerce.models.CustomerModel;
 import com.trantuyen.springecommerce.models.ResponseObject;
 import com.trantuyen.springecommerce.service.CustomerService;
 import com.trantuyen.springecommerce.util.JwtUtil;
@@ -34,7 +35,7 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?>  authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<ResponseObject>  authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         System.out.println(authenticationRequest);
         try{
             authenticationManager.authenticate(
@@ -42,10 +43,17 @@ public class AuthenticationController {
                             authenticationRequest.getUsername(),
                             authenticationRequest.getPassword()));
         }catch (BadCredentialsException e){
-            throw new Exception("Incorrect username or password");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("NOT_FOUND","Username and password incorrect",""));
         }
         final Customer customer = userDetailService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(customer);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        CustomerModel customerModel = CustomerModel.builder()
+                .id(customer.getId())
+                .admin(false)
+                .avatar(customer.getAvatar())
+                .username(customer.getUsername())
+                .accessToken(jwt).build();
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Authenticate success",customerModel));
     }
 }

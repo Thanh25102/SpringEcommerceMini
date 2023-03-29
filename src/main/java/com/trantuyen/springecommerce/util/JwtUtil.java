@@ -15,7 +15,7 @@ import java.util.function.Function;
 @Service
 public class JwtUtil implements Serializable {
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
-    private String secret = "BuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanhBuiManhThanh";
+    private String secret = "BuiManhThanhSecretKeyTesting123456789123456789123456789123456789123456789123456789123456789123456789";
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
