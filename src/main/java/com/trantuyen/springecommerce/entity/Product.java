@@ -31,10 +31,13 @@ public class Product {
     @Column(name = "color", nullable = false, length = 255)
     private String color;
     @Basic
-    @Column(name = "category", nullable = false, length = 255)
-    private String category;
+    @Column(name = "image", nullable = true, length = 255)
+    private String image;
     @OneToMany(mappedBy = "productByProductId")
     private Set<Cart> cartsById = new HashSet<>();
     @OneToMany(mappedBy = "productByProductId")
     private Set<OrderDetail> orderDetailsById = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category categoryByCategoryId;
 }

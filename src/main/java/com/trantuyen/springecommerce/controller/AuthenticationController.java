@@ -2,7 +2,6 @@ package com.trantuyen.springecommerce.controller;
 
 import com.trantuyen.springecommerce.entity.Customer;
 import com.trantuyen.springecommerce.models.AuthenticationRequest;
-import com.trantuyen.springecommerce.models.AuthenticationResponse;
 import com.trantuyen.springecommerce.models.CustomerModel;
 import com.trantuyen.springecommerce.models.ResponseObject;
 import com.trantuyen.springecommerce.service.CustomerService;
@@ -29,21 +28,15 @@ public class AuthenticationController {
         this.jwtUtil = jwtUtil;
     }
 
-    @RequestMapping("/hello")
-    public String hello() {
-        return "hello";
-    }
-
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<ResponseObject>  authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        System.out.println(authenticationRequest);
-        try{
+    public ResponseEntity<ResponseObject> authenticate(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+        try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             authenticationRequest.getUsername(),
                             authenticationRequest.getPassword()));
-        }catch (BadCredentialsException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("NOT_FOUND","Username and password incorrect",""));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("NOT_FOUND", "Username and password incorrect", ""));
         }
         final Customer customer = userDetailService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(customer);
@@ -54,6 +47,6 @@ public class AuthenticationController {
                 .username(customer.getUsername())
                 .accessToken(jwt).build();
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK","Authenticate success",customerModel));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("OK", "Authenticate success", customerModel));
     }
 }

@@ -23,6 +23,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+
     // https://mvnrepository.com/artifact/com.github.javafaker/javafaker
     implementation 'com.github.javafaker:javafaker:1.0.2'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
