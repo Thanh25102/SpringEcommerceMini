@@ -50,8 +50,7 @@ public class SecurityConfigurer {
                     return configuration;
                 }).and()
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/authenticate/**").permitAll()
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/authenticate/**","/products/**","/products","/categories").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

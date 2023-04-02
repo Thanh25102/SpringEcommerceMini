@@ -3,11 +3,18 @@ use TranTuyen;
 # drop database TranTuyen;
 create table `orders`
 (
-    id          bigint primary key auto_increment,
-    `status`    varchar(50) not null,
-    quantity    int         not null,
-    created_at  date        not null,
-    customer_id bigint      not null
+    id           bigint primary key auto_increment,
+    `status`     varchar(50)  not null,
+    quantity     int          not null,
+    first_name   varchar(255) not null,
+    last_name    varchar(255) not null,
+    company_name varchar(255) null,
+    country      varchar(255) not null,
+    address      varchar(255) not null,
+    phone        varchar(255) not null,
+    email        varchar(255) not null,
+    created_at   date         not null,
+    customer_id  bigint       not null
 );
 create table cart
 (
@@ -39,6 +46,7 @@ create table product
     color       varchar(255)   not null,
     brand       varchar(255)   not null,
     image       varchar(255)   null,
+    description varchar(1000)  null,
     category_id bigint         not null
 );
 create table category
@@ -62,31 +70,53 @@ alter table product
 insert into category(name)
 values ('Hamburger'),
        ('Cake'),
-        ('Pizza');
-insert into product(`name`, price,image, color, category_id, brand)
-values ('SHRIMP HAMBURGER', 19.55,'shop-shrimp-burger.png','RED',1,'KFC'),
-       ('CHICKEN HAMBURGER',18.44,'shop-chicken-burger.png','RED',1,'KFC'),
-       ('BEEF HAMBURGER',20,'shop-beef-burger.png','RED',1,'Lotteria'),
-       ('Big Mac Cheeseburger',18.44,'shop-big-mac-cheese-burger.png','RED',1,'KFC'),
-       ('Double Buffalo burger',18.44,'shop-double-buffalo-burger.png','RED',1,'KFC'),
-       ('Double Chicken burger',18.44,'shop-double-chicken-burger.png','RED',1,'KFC'),
-       ('Fried Fish burger',18.44,'shop-fried-fish-burger.png','RED',1,'KFC'),
-       ('Cheese Chicken burger',18.44,'shop-chese-chicken-burger.png','RED',1,'KFC'),
-       ('Bacon burger',18.44,'shop-bacon-burger.png','RED',1,'KFC'),
-       ('Bacon cheeseburger',18.44,'shop-bacon-chese-burger.png','RED',1,'KFC'),
-       ('Jumpo Chicken burger',18.44,'shop-jumpo-chicken-burger.png','RED',1,'KFC'),
-       ('Cheeseburger',18.44,'shop-chese-burger.png','RED',1,'KFC'),
+       ('Pizza');
+insert into product(`name`, price, image, color, category_id, brand, `description`)
+values ('SHRIMP HAMBURGER', 19.55, 'shop-shrimp-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('CHICKEN HAMBURGER', 18.44, 'shop-chicken-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('BEEF HAMBURGER', 20, 'shop-beef-burger.png', 'RED', 1, 'Lotteria', null),
+       ('Big Mac Cheeseburger', 18.44, 'shop-big-mac-cheese-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Double Buffalo burger', 18.44, 'shop-double-buffalo-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Double Chicken burger', 18.44, 'shop-double-chicken-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Fried Fish burger', 18.44, 'shop-fried-fish-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Cheese Chicken burger', 18.44, 'shop-chese-chicken-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Bacon burger', 18.44, 'shop-bacon-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Bacon cheeseburger', 18.44, 'shop-bacon-chese-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Jumpo Chicken burger', 18.44, 'shop-jumpo-chicken-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Cheeseburger', 18.44, 'shop-chese-burger.png', 'RED', 1, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
 
-       ('Chocolate Cupcake',18.44,'shop-chocolate-cup-cake.png','RED',2,'KFC'),
-       ('Red Velvet Cake',18.44,'shop-red-velvet-cake.png','RED',2,'KFC'),
-       ('Chocolate Muffin Cake',18.44,'shop-chocolate-muffin-cake.png','RED',2,'KFC'),
-       ('Chocolate Cake',18.44,'shop-chocolate-cake.png','RED',2,'KFC'),
-       ('Peanut Chocolate Cake',18.44,'shop-peanut-chocolate-cake.png','RED',2,'KFC'),
-       ('Strawberry Cake',18.44,'shop-strawberry-cake.png','RED',2,'KFC'),
-       ('Mint Ice Cream Cake',18.44,'shop-mint-ice-cream-cake.png','RED',2,'KFC'),
+       ('Chocolate Cupcake', 18.44, 'shop-chocolate-cup-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Red Velvet Cake', 18.44, 'shop-red-velvet-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Chocolate Muffin Cake', 18.44, 'shop-chocolate-muffin-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Chocolate Cake', 18.44, 'shop-chocolate-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Peanut Chocolate Cake', 18.44, 'shop-peanut-chocolate-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Strawberry Cake', 18.44, 'shop-strawberry-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Mint Ice Cream Cake', 18.44, 'shop-mint-ice-cream-cake.png', 'RED', 2, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
 
-       ('Summer Pizza',18.44,'shop-summer-pizza.png','RED',3,'KFC'),
-       ('Primo Meat Pizza',18.44,'shop-primo-meat-pizza.png','RED',3,'KFC'),
-       ('Pepperoni Pizza',18.44,'shop-pepperoni-pizza.png','RED',3,'KFC'),
-       ('Italiano Original Pizza',18.44,'shop-italiano-original-pizza.png','RED',3,'KFC'),
-       ('shop-mushroom-sausage-pizza.png',18.44,'carne-pizza','RED',3,'KFC');
+       ('Summer Pizza', 18.44, 'shop-summer-pizza.png', 'RED', 3, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Primo Meat Pizza', 18.44, 'shop-primo-meat-pizza.png', 'RED', 3, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Pepperoni Pizza', 18.44, 'shop-pepperoni-pizza.png', 'RED', 3, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('Italiano Original Pizza', 18.44, 'shop-italiano-original-pizza.png', 'RED', 3, 'KFC',
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
+       ('shop-mushroom-sausage-pizza.png', 18.44, 'carne-pizza', 'RED', 3, 'KFC', null);

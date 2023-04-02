@@ -1,6 +1,7 @@
 package com.trantuyen.springecommerce.repo;
 
 import com.trantuyen.springecommerce.entity.Customer;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,5 @@ public interface CustomerRepo extends PagingAndSortingRepository<Customer, Long>
     List<Customer> findByName(@Param("name") String name);
 
     Optional<Customer> findByUsername(@Param("username") String username);
+
 }

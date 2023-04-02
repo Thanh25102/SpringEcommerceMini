@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -30,6 +31,9 @@ public class Product {
     @Basic
     @Column(name = "color", nullable = false, length = 255)
     private String color;
+    @Basic
+    @Column(name = "description", nullable = false)
+    private String description;
     @Basic
     @Column(name = "image", nullable = true, length = 255)
     private String image;

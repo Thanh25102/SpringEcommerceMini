@@ -22,4 +22,11 @@ public class Category {
     private String name;
     @OneToMany(mappedBy = "categoryByCategoryId")
     private Set<Product> productsById = new HashSet<>();
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

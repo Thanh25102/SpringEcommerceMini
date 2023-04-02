@@ -23,6 +23,27 @@ public class Order {
     @Column(name = "status", nullable = false, length = 50)
     private String status;
     @Basic
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String firstName;
+    @Basic
+    @Column(name = "last_name", nullable = false, length = 50)
+    private String lastName;
+    @Basic
+    @Column(name = "company_name", nullable = true, length = 50)
+    private String companyName;
+    @Basic
+    @Column(name = "country", nullable = false, length = 50)
+    private String country;
+    @Basic
+    @Column(name = "address", nullable = false, length = 50)
+    private String address;
+    @Basic
+    @Column(name = "phone", nullable = false, length = 50)
+    private String phone;
+    @Basic
+    @Column(name = "email", nullable = false, length = 50)
+    private String email;
+    @Basic
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @Basic
