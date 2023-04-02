@@ -9,10 +9,11 @@ create table `orders`
     first_name   varchar(255) not null,
     last_name    varchar(255) not null,
     company_name varchar(255) null,
-    country      varchar(255) not null,
-    address      varchar(255) not null,
-    phone        varchar(255) not null,
+    country      varchar(255)  null,
+    address      varchar(255)  null,
+    phone        varchar(255)  null,
     email        varchar(255) not null,
+    price       decimal(10, 2) not null,
     created_at   date         not null,
     customer_id  bigint       not null
 );
@@ -31,7 +32,7 @@ create table customer
     password varchar(64)  not null,
     avatar   varchar(500) null
 );
-create table orderdetail
+create table order_detail
 (
     id         bigint primary key auto_increment,
     quantity   int    not null,
@@ -60,9 +61,9 @@ alter table cart
     add foreign key (customer_id) references customer (id);
 alter table cart
     add foreign key (product_id) references product (id);
-alter table orderdetail
+alter table order_detail
     add foreign key (order_id) references `orders` (id);
-alter table orderdetail
+alter table order_detail
     add foreign key (product_id) references product (id);
 alter table product
     add foreign key (category_id) references category (id);

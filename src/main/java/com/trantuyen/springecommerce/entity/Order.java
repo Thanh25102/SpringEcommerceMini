@@ -2,9 +2,11 @@ package com.trantuyen.springecommerce.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +16,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -32,13 +35,13 @@ public class Order {
     @Column(name = "company_name", nullable = true, length = 50)
     private String companyName;
     @Basic
-    @Column(name = "country", nullable = false, length = 50)
+    @Column(name = "country", nullable = true, length = 50)
     private String country;
     @Basic
-    @Column(name = "address", nullable = false, length = 50)
+    @Column(name = "address", nullable = true, length = 50)
     private String address;
     @Basic
-    @Column(name = "phone", nullable = false, length = 50)
+    @Column(name = "phone", nullable = true, length = 50)
     private String phone;
     @Basic
     @Column(name = "email", nullable = false, length = 50)
@@ -46,6 +49,9 @@ public class Order {
     @Basic
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+    @Basic
+    @Column(name = "price", nullable = false, precision = 2)
+    private BigDecimal price;
     @Basic
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
