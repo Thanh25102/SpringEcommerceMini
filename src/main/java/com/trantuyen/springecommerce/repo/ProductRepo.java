@@ -18,6 +18,6 @@ import java.util.List;
 public interface ProductRepo extends PagingAndSortingRepository<Product, Long>, CrudRepository<Product, Long> {
     List<Product> findProductByBrandAndColor(String brand, String color);
 
-    @Query("SELECT p FROM Product p WHERE p.categoryByCategoryId.id IN :categoryIds and p.price between :minPrice and :maxPrice")
+    @Query("SELECT p FROM Product p WHERE p.categoryByCategoryId.id IN :categoryIds and p.price between :minPrice and :maxPrice ")
     Page<Product> findByCategoryByCategoryIdInAndPriceBetween(List<Long> categoryIds, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
 }

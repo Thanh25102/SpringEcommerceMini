@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @SpringBootApplication
@@ -42,10 +43,11 @@ public class SpringEcommerceApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 //        generateFakeCategory(10);
 //        generateFakeProducts(10);
-        generateFakeCustomers(10);
+//        generateFakeCustomers(10);
+        generateData();
     }
 
-    private void generateFakeCategory(int count){
+    private void generateFakeCategory(int count) {
         List<Category> categories = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Category category = new Category();
@@ -54,6 +56,18 @@ public class SpringEcommerceApplication implements CommandLineRunner {
         }
         categoryRepo.saveAll(categories);
     }
+
+    private void generateData() {
+        Optional<Customer> customer = customerRepo.findByUsername("user");
+        if(customer.isEmpty()){
+            Customer customer1 = new Customer();
+            customer1.setName("User Mock");
+            customer1.setUsername("user");
+            customer1.setPassword(passwordEncoder.encode("123456"));
+            customerRepo.save(customer1);
+        }
+    }
+
     private void generateFakeProducts(int count) {
         Random rand = new Random();
         List<Product> products = new ArrayList<>();

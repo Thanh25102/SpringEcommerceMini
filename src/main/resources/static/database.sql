@@ -119,5 +119,18 @@ values ('SHRIMP HAMBURGER', 19.55, 'shop-shrimp-burger.png', 'RED', 1, 'KFC',
        ('Pepperoni Pizza', 18.44, 'shop-pepperoni-pizza.png', 'RED', 3, 'KFC',
         'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
        ('Italiano Original Pizza', 18.44, 'shop-italiano-original-pizza.png', 'RED', 3, 'KFC',
-        'Testing description for product .......... ..................... ......................... ....................... ................ end ! '),
-       ('shop-mushroom-sausage-pizza.png', 18.44, 'carne-pizza', 'RED', 3, 'KFC', null);
+        'Testing description for product .......... ..................... ......................... ....................... ................ end ! ');
+select
+    p1_0.id,
+    p1_0.brand,
+    p1_0.category_id,
+    p1_0.color,
+    p1_0.description,
+    p1_0.image,
+    p1_0.name,
+    p1_0.price
+from
+    product p1_0
+where p1_0.price between 0 and 30
+order by
+    p1_0.price desc limit 6;
