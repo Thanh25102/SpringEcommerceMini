@@ -32,9 +32,6 @@ public class SpringEcommerceApplication implements CommandLineRunner {
     private CategoryRepo categoryRepo;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    @Autowired
-    private CartRepo cartRepo;
-
     public static void main(String[] args) {
         SpringApplication.run(SpringEcommerceApplication.class, args);
     }

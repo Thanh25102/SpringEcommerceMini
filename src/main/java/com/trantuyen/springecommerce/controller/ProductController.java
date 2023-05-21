@@ -2,7 +2,7 @@ package com.trantuyen.springecommerce.controller;
 
 import com.trantuyen.springecommerce.entity.Product;
 import com.trantuyen.springecommerce.repo.ProductRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.trantuyen.springecommerce.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,11 +18,16 @@ import java.util.List;
 
 @RestController
 public class ProductController {
-    @Autowired
-    private ProductRepo productRepo;
+    private final ProductRepo productRepo;
 
-    @Autowired
-    private PagedResourcesAssembler<Product> pagedResourcesAssembler;
+    private final PagedResourcesAssembler<Product> pagedResourcesAssembler;
+
+    private final ProductService productService;
+    public ProductController(ProductRepo productRepo, PagedResourcesAssembler<Product> pagedResourcesAssembler, ProductService productService) {
+        this.productRepo = productRepo;
+        this.pagedResourcesAssembler = pagedResourcesAssembler;
+        this.productService = productService;
+    }
 
     @GetMapping("/products/random")
     public ResponseEntity<PagedModel<EntityModel<Product>>> random(@RequestParam("number") Integer number) {
@@ -30,6 +35,12 @@ public class ProductController {
         Page<Product> products = productRepo.findAll(pageable);
         PagedModel<EntityModel<Product>> pagedModel = pagedResourcesAssembler.toModel(products);
         return ResponseEntity.ok(pagedModel);
+    }
+    @GetMapping("/products/top-selling")
+    public ResponseEntity<List<Product>> topSelling() {
+        Pageable pageable = PageRequest.of(0, 5);
+        List<Product> products = productRepo.findTopSellingProducts(pageable);
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products")
@@ -39,14 +50,14 @@ public class ProductController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(value = "price", required = false, defaultValue = "0,30") List<Long> price,
             @RequestParam(value = "limit", required = false, defaultValue = "6") Integer limit,
-            @RequestParam(value = "order", required = false, defaultValue = "desc") String sort
+            @RequestParam(value = "order", required = false, defaultValue = "desc") String sort,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name
     ) {
         page = page - 1;
-        System.out.println("SORT : " + sort);
         Pageable pageable = sort.equals("desc") ? PageRequest.of(page, limit, Sort.sort(Product.class).by(order).descending()) :
                 PageRequest.of(page, limit, Sort.sort(Product.class).by(order).ascending());
 
-        Page<Product> products = productRepo.findByCategoryByCategoryIdInAndPriceBetween(categoriesId, new BigDecimal(price.get(0)), new BigDecimal(price.get(1)), pageable);
+        Page<Product> products = productRepo.findByCategoryByCategoryIdInAndPriceBetween(categoriesId, new BigDecimal(price.get(0)), new BigDecimal(price.get(1)), pageable,name);
         PagedModel<EntityModel<Product>> pagedModel = pagedResourcesAssembler.toModel(products);
 
         return ResponseEntity.ok(pagedModel);
