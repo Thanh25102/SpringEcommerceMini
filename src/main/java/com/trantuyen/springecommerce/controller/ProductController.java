@@ -38,8 +38,7 @@ public class ProductController {
     }
     @GetMapping("/products/top-selling")
     public ResponseEntity<List<Product>> topSelling() {
-        Pageable pageable = PageRequest.of(0, 5);
-        List<Product> products = productRepo.findTopSellingProducts(pageable);
+        List<Product> products = productService.findTopSellingProducts();
         return ResponseEntity.ok(products);
     }
 
